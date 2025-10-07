@@ -1,4 +1,4 @@
-# nirvana-agentic-orchestrator
+# semantic-kernel
 
 A FastAPI + Semantic Kernel + Azure OpenAI microservice
 
