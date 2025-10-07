@@ -1,4 +1,4 @@
-# nirvana-agentic-orchestrator
+# semantic-kernel
 
 A FastAPI + Semantic Kernel + Azure OpenAI microservice
 
@@ -86,6 +86,9 @@ The API will be available at:
 - **API Base**: http://localhost:8084
 - **Interactive Docs**: http://localhost:8084/docs
 - **OpenAPI Schema**: http://localhost:8084/openapi.json
+
+<img width="1419" height="948" alt="image" src="https://github.com/user-attachments/assets/58686047-bdab-4c89-80fe-83905d252b09" />
+
 
 ## 🙏 Acknowledgments
 
