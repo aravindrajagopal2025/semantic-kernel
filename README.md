@@ -87,6 +87,9 @@ The API will be available at:
 - **Interactive Docs**: http://localhost:8084/docs
 - **OpenAPI Schema**: http://localhost:8084/openapi.json
 
+<img width="1419" height="948" alt="image" src="https://github.com/user-attachments/assets/58686047-bdab-4c89-80fe-83905d252b09" />
+
+
 ## 🙏 Acknowledgments
 
 - Built with [FastAPI](https://fastapi.tiangolo.com/)
