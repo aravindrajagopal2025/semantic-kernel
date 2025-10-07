@@ -8,33 +8,10 @@ from openai import AzureOpenAI
 
 
 class SummaryAgent:
-    SYSTEM_MESSAGE = "You are a clinical summarization assistant. Given structured patient data extracted from FHIR resources, generate a concise and clinically relevant summary. Include the patient's demographics, conditions, encounters, medications, observations (e.g., labs and vitals), and any adverse events. Focus on active problems and recent clinical activity. Use clear and concise language suitable for a clinician."
+    SYSTEM_MESSAGE = "You are a clinical summarization assistant. Given a text, generate a concise and clinically relevant summary."
     PROMPT_TEMPLATE = (
         '''
-      Patient: John Doe, 67M
-Conditions:
-- Type 2 Diabetes Mellitus (SNOMED 44054006), diagnosed 2015
-- Hypertension (SNOMED 38341003)
-
-resourceType: MedicationRequest
-id: 123456
-status: active
-intent: order
-medicationCodeableConcept.coding[0].system: http://www.nlm.nih.gov/research/umls/rxnorm
-medicationCodeableConcept.coding[0].code: 860975
-medicationCodeableConcept.coding[0].display: Metformin 500 MG Oral Tablet
-subject.reference: Patient/789
-authoredOn: 2023-05-01
-dosageInstruction[0].text: Take one tablet twice daily
-
-
-Allergies:
-- Penicillin (rash)
-
-Recent Encounter:
-- Date: 2024-11-21
-- Chief complaint: Increased thirst and urination
-
+         type-2 diabetes
 '''
     )
 
@@ -83,23 +60,3 @@ Recent Encounter:
             logging.error(f"LLM error in summarization: {e}")
             error_response = {"error": "Summary unavailable due to an internal error."}
             return json.dumps(error_response)
-
-
-    async def flatten_fhir_json(data, parent_key='', sep='.'):
-        """
-        Recursively flattens FHIR JSON into a flat dict with dot-separated keys.
-        """
-        items = []
-        
-        if isinstance(data, dict):
-            for k, v in data.items():
-                new_key = f"{parent_key}{sep}{k}" if parent_key else k
-                items.extend(flatten_fhir_json(v, new_key, sep=sep).items())
-        elif isinstance(data, list):
-            for i, v in enumerate(data):
-                new_key = f"{parent_key}[{i}]"
-                items.extend(flatten_fhir_json(v, new_key, sep=sep).items())
-        else:
-            items.append((parent_key, data))
-        
-        return dict(items)
